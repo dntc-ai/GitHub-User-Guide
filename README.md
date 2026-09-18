@@ -11,7 +11,7 @@
 - [1. 注册账号与配置 SSH Key](#1-注册账号与配置-ssh-key)
 - [2. 认识仓库页面](#2-认识仓库页面)
 - [3. 认领 Issue：贡献的第一步](#3-认领-issue贡献的第一步)
-- [4. Fork 与 Clone](#4-fork-与-clone)
+- [4. Clone 仓库](#4-clone-仓库)
 - [5. 创建主题分支](#5-创建主题分支)
 - [6. 修改代码与提交](#6-修改代码与提交)
 - [7. Push 与发起 Pull Request](#7-push-与发起-pull-request)
@@ -72,7 +72,6 @@ git config --global user.email "you@example.com"
 | **Issues** | 报告 bug、提出需求、认领任务 |
 | **Pull requests** | 查看进行中的代码评审 |
 | **Actions** | 查看 CI 流水线结果 |
-| **Fork**（右上角） | 把仓库复制一份到自己账号下 |
 
 ![仓库页面导览](assets/03-repo-overview.png)
 
@@ -88,30 +87,28 @@ git config --global user.email "you@example.com"
 
 > **TODO**：按你们团队的实际约定修改认领方式（例如要求 @ 指定维护者、使用项目看板等）。
 
-## 4. Fork 与 Clone
+## 4. Clone 仓库
 
-没有仓库写权限的外部贡献者，走 **Fork → Clone** 流程：
+本组织的仓库为私有仓库且未开放 Fork，直接从组织仓库克隆：
 
-1. 点击仓库右上角 **Fork**，把仓库复制到自己账号下；
-2. 从**你自己**的 fork 页面复制 SSH 地址并克隆到本地：
+1. 打开组织仓库页面，点击绿色 **Code** 按钮，切换到 **SSH** 页签并复制地址；
+2. 克隆到本地：
 
    ```bash
-   git clone git@github.com:<你的用户名>/<仓库名>.git
+   git clone git@github.com:<组织名>/<仓库名>.git
    cd <仓库名>
    ```
 
-3. 关联上游仓库，方便日后同步最新代码：
+3. 确认远端配置：
 
    ```bash
-   git remote add upstream git@github.com:<组织名>/<仓库名>.git
-   git remote -v   # 应能看到 origin（你的 fork）和 upstream（源仓库）
+   git remote -v   # origin 应指向组织仓库
    ```
 
-![Fork 仓库](assets/05-fork.png)
+> 克隆私有仓库需要你已被添加为仓库协作者（Collaborator）或组织成员，
+> 并提前配置好 SSH Key（见 §1）。没有权限时先联系仓库管理员添加。
 
-![Clone 与关联 upstream](assets/06-clone.png)
-
-> 有仓库 **write 权限**的内部成员可跳过 Fork，直接 clone 组织仓库。
+![Clone 仓库](assets/05-clone.png)
 
 ## 5. 创建主题分支
 
@@ -119,7 +116,7 @@ git config --global user.email "you@example.com"
 
 ```bash
 git switch main
-git pull upstream main          # 同步上游最新代码
+git pull origin main            # 同步远端最新代码
 git switch -c feat/short-desc   # 或 fix/short-desc
 ```
 
@@ -131,7 +128,7 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 | `fix/` | 缺陷修复 | `fix/login-timeout` |
 | `docs/` | 文档 | `docs/quickstart` |
 
-![创建分支](assets/07-branch.png)
+![创建分支](assets/06-branch.png)
 
 > **TODO**：若你们使用 Issue 编号命名（如 `feat/123-export-pdf`），在此注明。
 
@@ -170,7 +167,7 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 
 ## 7. Push 与发起 Pull Request
 
-1. 推送分支到你的 fork：
+1. 推送分支到组织仓库：
 
    ```bash
    git push -u origin feat/short-desc
@@ -182,9 +179,9 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 4. 填写 PR 标题与描述（标题同样遵循 Conventional Commits），勾选关联的 Issue（如 `Closes #123`）；
 5. 点击 **Create pull request**。
 
-![Push 分支](assets/08-push.png)
+![Push 分支](assets/07-push.png)
 
-![创建 Pull Request](assets/09-create-pr.png)
+![创建 Pull Request](assets/08-create-pr.png)
 
 **PR 描述建议包含：**
 
@@ -211,9 +208,9 @@ PR 发起后进入评审环节，流程如下：
    对 reviewer 的每条评论请逐一回复（Resolved / 说明理由），不要忽略；
 4. 评审通过（Approve）且 CI 全绿后，等待维护者合并。
 
-![CI 检查](assets/10-ci-checks.png)
+![CI 检查](assets/09-ci-checks.png)
 
-![Code Review](assets/11-review.png)
+![Code Review](assets/10-review.png)
 
 > **注意**：review 后请不要关闭 PR 重新开一个新的，直接在原分支上追加提交即可。
 
@@ -225,25 +222,33 @@ PR 发起后进入评审环节，流程如下：
 
    ```bash
    git switch main
-   git pull upstream main
+   git pull origin main                     # 拉取合并后的最新代码
    git branch -d feat/short-desc            # 删除本地分支
-   git push origin --delete feat/short-desc # 删除 fork 上的分支
+   git push origin --delete feat/short-desc # 删除远端主题分支
    ```
+
+   也可直接在合并完成的 PR 页面点击 **Delete branch** 按钮。
 
 3. 在原 Issue 确认任务闭环，开始下一个贡献 🎉
 
-![合并 PR](assets/12-merge.png)
+![合并 PR](assets/11-merge.png)
 
 ## 10. 常见问题
 
 <details>
-<summary><b>我的 fork 落后上游了，怎么同步？</b></summary>
+<summary><b>本地 main 落后远端了，怎么更新？</b></summary>
 
 ```bash
 git switch main
-git fetch upstream
-git rebase upstream/main   # 或 git merge upstream/main
-git push origin main
+git pull origin main
+```
+
+自己的主题分支需要带上 `main` 的最新改动时：
+
+```bash
+git switch feat/short-desc
+git fetch origin
+git rebase origin/main
 ```
 
 </details>
@@ -269,8 +274,8 @@ git push origin main
 
 ```bash
 git switch feat/short-desc
-git fetch upstream
-git rebase upstream/main
+git fetch origin
+git rebase origin/main
 # 逐个解决冲突文件后：
 git add -A
 git rebase --continue
@@ -297,16 +302,15 @@ git push -f
 |---|---|---|
 | `01-register.png` | GitHub 注册页 | 邮箱、密码、用户名填写 |
 | `02-ssh-key.png` | SSH Key 设置页 | Settings 入口与粘贴位置 |
-| `03-repo-overview.png` | 仓库首页导览 | Code / Issues / PR / Actions / Fork 按钮 |
+| `03-repo-overview.png` | 仓库首页导览 | Code / Issues / PR / Actions 按钮 |
 | `04-claim-issue.png` | Issue 认领 | 标签筛选与留言框 |
-| `05-fork.png` | Fork 操作 | 右上角 Fork 按钮与确认页 |
-| `06-clone.png` | Clone 地址复制 | SSH 地址与 Code 下拉框 |
-| `07-branch.png` | 分支创建 | 命令执行结果 |
-| `08-push.png` | push 输出 | `-u origin` 与成功提示 |
-| `09-create-pr.png` | PR 创建页 | base/compare 方向、标题、描述 |
-| `10-ci-checks.png` | CI 检查列表 | Checks 标签与 job 状态 |
-| `11-review.png` | Review 评论 | Files changed 与 suggestion |
-| `12-merge.png` | Squash merge | 合并按钮与确认框 |
+| `05-clone.png` | Clone 地址复制 | Code 按钮、SSH 页签与地址 |
+| `06-branch.png` | 分支创建 | 命令执行结果 |
+| `07-push.png` | push 输出 | `-u origin` 与成功提示 |
+| `08-create-pr.png` | PR 创建页 | base/compare 方向、标题、描述 |
+| `09-ci-checks.png` | CI 检查列表 | Checks 标签与 job 状态 |
+| `10-review.png` | Review 评论 | Files changed 与 suggestion |
+| `11-merge.png` | Squash merge | 合并按钮与确认框 |
 
 截图规范：整页截图后裁剪到关键区域；用红框 / 箭头标注操作点；宽度统一 1200px 左右。
 
