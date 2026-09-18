@@ -7,18 +7,21 @@
 
 ## 目录
 
-- [0. 准备工作](#0-准备工作)
-- [1. 注册账号与配置 SSH Key](#1-注册账号与配置-ssh-key)
-- [2. 认识仓库页面](#2-认识仓库页面)
-- [3. 认领 Issue：贡献的第一步](#3-认领-issue贡献的第一步)
-- [4. Clone 仓库](#4-clone-仓库)
-- [5. 创建主题分支](#5-创建主题分支)
-- [6. 修改代码与提交](#6-修改代码与提交)
-- [7. Push 与发起 Pull Request](#7-push-与发起-pull-request)
-- [8. CI 检查与 Code Review](#8-ci-检查与-code-review)
-- [9. 合并与后续清理](#9-合并与后续清理)
-- [10. 常见问题](#10-常见问题)
-- [附录 A：示意图清单](#附录-a示意图清单)
+- [GitHub 代码贡献指南](#github-代码贡献指南)
+  - [目录](#目录)
+  - [0. 准备工作](#0-准备工作)
+  - [1. 注册账号与配置 SSH Key](#1-注册账号与配置-ssh-key)
+  - [2. 认识仓库页面](#2-认识仓库页面)
+  - [3. 认领 Issue：贡献的第一步](#3-认领-issue贡献的第一步)
+  - [4. Clone 仓库](#4-clone-仓库)
+  - [5. 创建主题分支](#5-创建主题分支)
+  - [6. 修改代码与提交](#6-修改代码与提交)
+  - [7. Push 与发起 Pull Request](#7-push-与发起-pull-request)
+  - [8. CI 检查与 Code Review](#8-ci-检查与-code-review)
+  - [9. 合并与后续清理](#9-合并与后续清理)
+  - [10. 常见问题](#10-常见问题)
+  - [附录 A：示意图清单](#附录-a示意图清单)
+  - [获取帮助](#获取帮助)
 
 ---
 
@@ -130,7 +133,6 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 
 ![创建分支](assets/06-branch.png)
 
-> **TODO**：若你们使用 Issue 编号命名（如 `feat/123-export-pdf`），在此注明。
 
 ## 6. 修改代码与提交
 
@@ -148,6 +150,8 @@ git switch -c feat/short-desc   # 或 fix/short-desc
    ```bash
    git commit -m "feat(module): support xx"
    ```
+
+   > 具体的 commit type 见具体仓库要求。
 
    | type | 用途 |
    |---|---|
