@@ -61,10 +61,6 @@ git config --global user.email "you@example.com"
    # 出现 "Hi <用户名>! You've successfully authenticated" 即成功
    ```
 
-![注册 GitHub 账号](assets/01-register.png)
-
-![添加 SSH Key](assets/02-ssh-key.png)
-
 ## 2. 认识仓库页面
 
 以本组织任一仓库为例，页面上最常用的几个入口：
@@ -76,8 +72,6 @@ git config --global user.email "you@example.com"
 | **Pull requests** | 查看进行中的代码评审 |
 | **Actions** | 查看 CI 流水线结果 |
 
-![仓库页面导览](assets/03-repo-overview.png)
-
 ## 3. 认领 Issue：贡献的第一步
 
 **先认领、再动手**，避免与他人重复劳动：
@@ -85,8 +79,6 @@ git config --global user.email "you@example.com"
 1. 在 **Issues** 列表里寻找带有 `good first issue` / `help wanted` 标签的条目；
 2. 在该 Issue 下留言「我认领这个任务」（例：`I'd like to work on this.`）；
 3. 等维护者回复确认后再开始编码。
-
-![认领 Issue](assets/04-claim-issue.png)
 
 > **TODO**：按你们团队的实际约定修改认领方式（例如要求 @ 指定维护者、使用项目看板等）。
 
@@ -111,7 +103,7 @@ git config --global user.email "you@example.com"
 > 克隆私有仓库需要你已被添加为仓库协作者（Collaborator）或组织成员，
 > 并提前配置好 SSH Key（见 §1）。没有权限时先联系仓库管理员添加。
 
-![Clone 仓库](assets/05-clone.png)
+![Clone 仓库](assets/01-clone.png)
 
 ## 5. 创建主题分支
 
@@ -130,9 +122,6 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 | `feat/` | 新功能 | `feat/export-pdf` |
 | `fix/` | 缺陷修复 | `fix/login-timeout` |
 | `docs/` | 文档 | `docs/quickstart` |
-
-![创建分支](assets/06-branch.png)
-
 
 ## 6. 修改代码与提交
 
@@ -183,9 +172,9 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 4. 填写 PR 标题与描述（标题同样遵循 Conventional Commits），勾选关联的 Issue（如 `Closes #123`）；
 5. 点击 **Create pull request**。
 
-![Push 后仓库页出现 Compare & pull request 横幅](assets/07-push.png)
+![Push 后仓库页出现 Compare & pull request 横幅](assets/02-push.png)
 
-![创建 Pull Request](assets/08-create-pr.png)
+![创建 Pull Request](assets/03-create-pr.png)
 
 **PR 描述建议包含：**
 
@@ -215,9 +204,7 @@ PR 发起后进入评审环节，流程如下：
 > **普通贡献者没有合并权限**：到上一步 PR 创建完成，你的操作就结束了，
 > 接下来等 review 意见即可；合并由仓库管理员执行。
 
-![CI 检查](assets/09-ci-checks.png)
-
-![Code Review](assets/10-review.png)
+![CI 检查列表](assets/04-ci-checks.png)
 
 > **注意**：review 后请不要关闭 PR 重新开一个新的，直接在原分支上追加提交即可。
 
@@ -229,7 +216,7 @@ PR 发起后进入评审环节，流程如下：
 **Squash and merge**（多个提交压缩为一个并入 `main`，PR 标题默认成为该提交的信息）。
 **不要**直接点合并按钮使用默认的 Create a merge commit，也不要选 Rebase and merge：
 
-![管理员选择 Squash and merge](assets/11-merge.png)
+![管理员选择 Squash and merge](assets/05-merge.png)
 
 合并完成后，点击合并提示中的 **Delete branch** 按钮即可顺手删除远端主题分支。
 
@@ -309,21 +296,15 @@ git push -f
 
 ## 附录 A：示意图清单
 
-请将以下截图放入 `assets/` 目录（文件名保持一致，README 即可直接引用）：
+本文共 5 张示意图，统一存放在 `assets/` 目录：
 
 | 文件名 | 内容 | 建议标注重点 |
 |---|---|---|
-| `01-register.png` | GitHub 注册页 | 邮箱、密码、用户名填写 |
-| `02-ssh-key.png` | SSH Key 设置页 | Settings 入口与粘贴位置 |
-| `03-repo-overview.png` | 仓库首页导览 | Code / Issues / PR / Actions 按钮 |
-| `04-claim-issue.png` | Issue 认领 | 标签筛选与留言框 |
-| `05-clone.png` | Clone 地址复制 | Code 按钮、SSH 页签与地址 |
-| `06-branch.png` | 分支创建 | 命令执行结果 |
-| `07-push.png` | push 后的仓库页横幅 | "recent pushes" 提示与 Compare & pull request 按钮 |
-| `08-create-pr.png` | PR 创建页 | base/compare 方向、标题、描述 |
-| `09-ci-checks.png` | CI 检查列表 | Checks 标签与 job 状态 |
-| `10-review.png` | Review 评论 | Files changed 与 suggestion |
-| `11-merge.png` | 合并方式选择（管理员） | 下拉框选中 Squash and merge、All checks passed 面板 |
+| `01-clone.png` | Clone 地址复制 | Code 按钮、SSH 页签与地址 |
+| `02-push.png` | push 后的仓库页横幅 | "recent pushes" 提示与 Compare & pull request 按钮 |
+| `03-create-pr.png` | PR 创建页 | base/compare 方向、标题、描述 |
+| `04-ci-checks.png` | CI 检查列表 | Checks 页各 job 状态 |
+| `05-merge.png` | 合并方式选择（管理员） | 下拉框选中 Squash and merge、All checks passed 面板 |
 
 截图规范：整页截图后裁剪到关键区域；用红框 / 箭头标注操作点；宽度统一 1200px 左右。
 
