@@ -183,7 +183,7 @@ git switch -c feat/short-desc   # 或 fix/short-desc
 4. 填写 PR 标题与描述（标题同样遵循 Conventional Commits），勾选关联的 Issue（如 `Closes #123`）；
 5. 点击 **Create pull request**。
 
-![Push 分支](assets/07-push.png)
+![Push 后仓库页出现 Compare & pull request 横幅](assets/07-push.png)
 
 ![创建 Pull Request](assets/08-create-pr.png)
 
@@ -210,7 +210,10 @@ PR 发起后进入评审环节，流程如下：
    ```
 
    对 reviewer 的每条评论请逐一回复（Resolved / 说明理由），不要忽略；
-4. 评审通过（Approve）且 CI 全绿后，等待维护者合并。
+4. 评审通过（Approve）且 CI 全绿后，**通知仓库管理员合并**。
+
+> **普通贡献者没有合并权限**：到上一步 PR 创建完成，你的操作就结束了，
+> 接下来等 review 意见即可；合并由仓库管理员执行。
 
 ![CI 检查](assets/09-ci-checks.png)
 
@@ -220,22 +223,28 @@ PR 发起后进入评审环节，流程如下：
 
 ## 9. 合并与后续清理
 
-1. 维护者以 **Squash and merge** 方式合并（你的多个提交会被压缩为 `main` 上的一个提交，
-   PR 标题默认成为该提交的信息）；
-2. 合并后清理本地与远端的主题分支：
+### 管理员：如何合并
+
+在 PR 页面底部的合并框中，点击合并按钮旁的**下拉箭头**，选择
+**Squash and merge**（多个提交压缩为一个并入 `main`，PR 标题默认成为该提交的信息）。
+**不要**直接点合并按钮使用默认的 Create a merge commit，也不要选 Rebase and merge：
+
+![管理员选择 Squash and merge](assets/11-merge.png)
+
+合并完成后，点击合并提示中的 **Delete branch** 按钮即可顺手删除远端主题分支。
+
+### 贡献者：合并后的本地清理
+
+1. 删除本地与远端的主题分支：
 
    ```bash
    git switch main
    git pull origin main                     # 拉取合并后的最新代码
    git branch -d feat/short-desc            # 删除本地分支
-   git push origin --delete feat/short-desc # 删除远端主题分支
+   git push origin --delete feat/short-desc # 删除远端主题分支（若管理员未删）
    ```
 
-   也可直接在合并完成的 PR 页面点击 **Delete branch** 按钮。
-
-3. 在原 Issue 确认任务闭环，开始下一个贡献 🎉
-
-![合并 PR](assets/11-merge.png)
+2. 在原 Issue 确认任务闭环，开始下一个贡献 🎉
 
 ## 10. 常见问题
 
@@ -310,11 +319,11 @@ git push -f
 | `04-claim-issue.png` | Issue 认领 | 标签筛选与留言框 |
 | `05-clone.png` | Clone 地址复制 | Code 按钮、SSH 页签与地址 |
 | `06-branch.png` | 分支创建 | 命令执行结果 |
-| `07-push.png` | push 输出 | `-u origin` 与成功提示 |
+| `07-push.png` | push 后的仓库页横幅 | "recent pushes" 提示与 Compare & pull request 按钮 |
 | `08-create-pr.png` | PR 创建页 | base/compare 方向、标题、描述 |
 | `09-ci-checks.png` | CI 检查列表 | Checks 标签与 job 状态 |
 | `10-review.png` | Review 评论 | Files changed 与 suggestion |
-| `11-merge.png` | Squash merge | 合并按钮与确认框 |
+| `11-merge.png` | 合并方式选择（管理员） | 下拉框选中 Squash and merge、All checks passed 面板 |
 
 截图规范：整页截图后裁剪到关键区域；用红框 / 箭头标注操作点；宽度统一 1200px 左右。
 
